@@ -8,67 +8,105 @@ export default function useApplicationData() {
     appointments: {},
     interviewers: {}
   })
-
+  
   useEffect(() => {
     Promise.all([
       Axios.get('/api/days'),
       Axios.get('/api/appointments'),
       Axios.get('/api/interviewers')
     ]).then((all) => {
-      console.log('all responses', all);
       setState(prev => ({ ...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data }))
+
     })
   }, []);
 
+
+  const calculateSpots = (appointments) => {
+    let targetDay = state.days.find((day)=>{
+      if(day.name === state.day) return day;
+    })
+    // const numberOfSpots;
+    const appointmentsForDay = targetDay.appointments;
+
+    const nullAppointments = appointmentsForDay.filter((appointmentID)=>{
+
+      if (appointments[appointmentID].interview === null) {
+        return appointments[appointmentID]
+      }
+    })
+
+    const numberOfSpots = nullAppointments.length;
+    targetDay.spots = numberOfSpots
+
+    const updatedDays = [...state.days].map((day)=> {
+      if(day.name === state.name) return targetDay;
+      return day;
+    })
+
+    return updatedDays;
+  }
+
+  
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
-
+    
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-
+    
     return Axios({
       method: "put",
       url: `/api/appointments/${id}`,
       data: { ...appointment }
     })
-      .then((response) => {
-        console.log(response)
-        setState({ ...state, appointments })
-      })
-    // .catch((err) => console.log(err.message))
+    .then((response) => {
+      setState((prev)=> ({ ...prev, appointments }))
+      
+    })
+    .then(()=> {
+      console.log("calculateSpots", calculateSpots(appointments))
+      const updatedDays = calculateSpots(appointments);
+      // const updatedDays = null;
+      setState((prev)=> ({...prev, updatedDays }))
+    })
   }
-
+  
   function deleteInterview(id) {
-    console.log('delete appointment', id)
-    console.log("states", state.appointments[id])
     const appointment = {
       ...state.appointments[id],
       interview: null
     };
-    console.log('appointment to delete', appointment)
+    
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    console.log("updatedappointments", appointments)
+    
     // setState({ ...state, appointments })
     return Axios({
       method: "delete",
       url: `/api/appointments/${id}`,
       data: { ...appointment }
     })
-      .then((response) => {
-        console.log(response)
-        setState({ ...state, appointments })
-      })
+    .then((response) => {
+      
+      setState({ ...state, appointments })
+    })
+    .then(()=> {
+      console.log("calculateSpots", calculateSpots(appointments))
+      const updatedDays = calculateSpots(appointments);
+      // const updatedDays = null;
+      setState((prev)=> ({...prev, updatedDays }))
+    })
   }
-
-  const setDay = day => setState({ ...state, day });
-
+  
+  const setDay = day => {
+    setState({ ...state, day });
+  }
+  
   return {state,bookInterview,setDay,deleteInterview}
 }
