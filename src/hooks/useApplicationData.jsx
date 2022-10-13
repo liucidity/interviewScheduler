@@ -9,6 +9,7 @@ export default function useApplicationData() {
     interviewers: {}
   })
   
+  // initial get data from database
   useEffect(() => {
     Promise.all([
       Axios.get('/api/days'),
@@ -20,7 +21,7 @@ export default function useApplicationData() {
     })
   }, []);
 
-
+// calculate spots to be used when adding or deleting an appointment
   const calculateSpots = (appointments) => {
     let targetDay = state.days.find((day)=>{
       if(day.name === state.day) return day;
@@ -46,7 +47,7 @@ export default function useApplicationData() {
     return days;
   }
 
-  
+  // create new appointment
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -69,13 +70,13 @@ export default function useApplicationData() {
       
     })
     .then(()=> {
-      console.log("calculateSpots", calculateSpots(appointments))
+      // console.log("calculateSpots", calculateSpots(appointments))
       const days = calculateSpots(appointments);
       // const updatedDays = null;
       setState((prev)=> ({...prev, days }))
     })
   }
-  
+  // cancel appointments
   function deleteInterview(id) {
     const appointment = {
       ...state.appointments[id],
@@ -99,13 +100,14 @@ export default function useApplicationData() {
       setState({ ...state, appointments })
     })
     .then(()=> {
-      console.log("calculateSpots", calculateSpots(appointments))
+      // console.log("calculateSpots", calculateSpots(appointments))
       const days = calculateSpots(appointments);
       // const updatedDays = null;
       setState((prev)=> ({...prev, days }))
     })
   }
   
+  // set day state
   const setDay = day => {
     setState({ ...state, day });
   }

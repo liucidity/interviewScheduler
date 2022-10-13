@@ -36,10 +36,7 @@ export function getAppointmentsForDay(state, day) {
     const interviewer = state.interviewers[interviewerId];
     const student = interview.student;
     const result = {student: student, interviewer: interviewer};
-    console.log('result',result)
-    
-    console.log('interviewState',state);
-    console.log('interview',interview);
+
     return result;
   }
 

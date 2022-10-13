@@ -18,7 +18,7 @@ const CONFIRM = "CONFIRM";
 const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE"
 const ERROR_DELETE = "ERROR_DELETE"
-import uuid from 'uuid';
+
 
 
 import "components/Appointment/styles.scss"
@@ -55,8 +55,6 @@ export default function Appointment(props) {
         transition(ERROR_DELETE, true)
         console.log(err)
       })
-
-    // interview = null;
 
   }
 
