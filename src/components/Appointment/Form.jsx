@@ -5,20 +5,32 @@ import Button from "components/Button";
 
 
 export default function Form(props) {
+  const [error, setError] = useState("");
   const reset = ()=> {
     setStudent("");
     setInterviewer(null);
   }
 
   const cancel = ()=>{
+    setError("")
     reset();
     //why use function here
     props.onCancel();
   }
 
-  const save = () => {
-    props.onSave(student,interviewer)
 
+  function validate() {
+    if (student === "") {
+      setError("student name cannot be blank");
+      return;
+    }
+
+    if (interviewer === null) {
+      setError("please select an interviewer");
+      return;
+    }
+    setError("")
+    props.onSave(student, interviewer);
   }
 
   
@@ -28,20 +40,18 @@ export default function Form(props) {
   <main className="appointment__card appointment__card--create">
     <section className="appointment__card-left">
       <form autoComplete="off" onSubmit={event => event.preventDefault()}>
-        <input
+        <input 
           className="appointment__create-input text--semi-bold"
           name="name"
           type="text"
           placeholder="Enter Student Name"
-          /*
-            This must be a controlled component
-            your code goes here
-          */
-         value={student}
-         onChange={(event) => {setStudent(event.target.value)}}
+          value={student}
+          onChange={(event) => {setStudent(event.target.value)}}
+          data-testid="student-name-input"
         />
       </form>
-      <InterviewerList 
+      <section className="appointment__validation">{error}</section>
+      <InterviewerList
         interviewers={props.interviewers}
         // unsure here
         value={interviewer}
@@ -51,7 +61,7 @@ export default function Form(props) {
     <section className="appointment__card-right"> 
       <section className="appointment__actions">
         <Button danger onClick={cancel}>Cancel</Button>
-        <Button confirm onClick={save}>Save</Button>
+        <Button confirm onClick={()=> validate()}>Save</Button>
       </section>
     </section>
   </main>)

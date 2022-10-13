@@ -38,12 +38,12 @@ export default function useApplicationData() {
     const numberOfSpots = nullAppointments.length;
     targetDay.spots = numberOfSpots
 
-    const updatedDays = [...state.days].map((day)=> {
+    const days = [...state.days].map((day)=> {
       if(day.name === state.name) return targetDay;
       return day;
     })
 
-    return updatedDays;
+    return days;
   }
 
   
@@ -58,20 +58,21 @@ export default function useApplicationData() {
       [id]: appointment
     };
     
-    return Axios({
-      method: "put",
-      url: `/api/appointments/${id}`,
-      data: { ...appointment }
-    })
+    // return Axios({
+    //   method: "put",
+    //   url: `/api/appointments/${id}`,
+    //   data: { ...appointment }
+    // })
+    return Axios.put(`/api/appointments/${id}`, {...appointment})
     .then((response) => {
       setState((prev)=> ({ ...prev, appointments }))
       
     })
     .then(()=> {
       console.log("calculateSpots", calculateSpots(appointments))
-      const updatedDays = calculateSpots(appointments);
+      const days = calculateSpots(appointments);
       // const updatedDays = null;
-      setState((prev)=> ({...prev, updatedDays }))
+      setState((prev)=> ({...prev, days }))
     })
   }
   
@@ -87,20 +88,21 @@ export default function useApplicationData() {
     };
     
     // setState({ ...state, appointments })
-    return Axios({
-      method: "delete",
-      url: `/api/appointments/${id}`,
-      data: { ...appointment }
-    })
+    // return Axios({
+    //   method: "delete",
+    //   url: `/api/appointments/${id}`,
+    //   data: { ...appointment }
+    // })
+    return Axios.delete(`/api/appointments/${id}`,{...appointment})
     .then((response) => {
       
       setState({ ...state, appointments })
     })
     .then(()=> {
       console.log("calculateSpots", calculateSpots(appointments))
-      const updatedDays = calculateSpots(appointments);
+      const days = calculateSpots(appointments);
       // const updatedDays = null;
-      setState((prev)=> ({...prev, updatedDays }))
+      setState((prev)=> ({...prev, days }))
     })
   }
   
