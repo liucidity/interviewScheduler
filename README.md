@@ -1,5 +1,7 @@
 # Interview Scheduler
 
+A CRUD application for scheduling appointments. features assigning an interviewer to the time slot.
+
 ## Setup
 
 Install dependencies with `npm install`.

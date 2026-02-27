@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.20.0",
-    "classnames": "^2.2.6",
+    "axios": "^1.13.5",
+    "classnames": "^2.5.1",
     "normalize.css": "^8.0.1",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-hooks-testing-library": "^0.6.0",
-    "react-scripts": "3.4.4"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,18 +33,20 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/eslint-parser": "^7.19.1",
-    "@storybook/addon-actions": "^5.0.10",
-    "@storybook/addon-backgrounds": "^5.0.10",
-    "@storybook/addon-links": "^5.0.10",
-    "@storybook/addons": "^5.0.10",
-    "@storybook/react": "^5.0.10",
-    "@testing-library/jest-dom": "^4.0.0",
-    "@testing-library/react": "^8.0.7",
+    "@babel/core": "^7.29.0",
+    "@babel/eslint-parser": "^7.28.6",
+    "@storybook/addon-actions": "^9.0.8",
+    "@storybook/addon-backgrounds": "^9.0.8",
+    "@storybook/addon-links": "^5.3.21",
+    "@storybook/addons": "^5.3.22",
+    "@storybook/react": "^10.2.12",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^8.0.9",
+    "eslint": "^10.0.2",
+    "eslint-config-react-app": "^7.0.1",
     "prop-types": "^15.8.1",
-    "react-test-renderer": "^16.9.0",
-    "sass": "^1.55.0"
+    "react-test-renderer": "^16.14.0",
+    "sass": "^1.97.3"
   },
   "jest": {
     "watchPathIgnorePatterns": [
@@ -52,5 +54,6 @@
       "<rootDir>/.git/"
     ]
   },
-  "proxy": "http://localhost:8001"
+  "proxy": "http://127.0.0.1:8001",
+  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4"
 }
