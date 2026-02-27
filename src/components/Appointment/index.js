@@ -7,6 +7,7 @@ import Form from "./Form";
 import Status from "./Status";
 import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
+import "components/Appointment/styles.scss"
 
 
 const EMPTY = "EMPTY";
@@ -21,7 +22,7 @@ const ERROR_DELETE = "ERROR_DELETE"
 
 
 
-import "components/Appointment/styles.scss"
+
 
 
 export default function Appointment(props) {
