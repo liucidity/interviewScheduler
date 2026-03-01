@@ -23,18 +23,19 @@ export default function useApplicationData() {
 
 // calculate spots to be used when adding or deleting an appointment
   const calculateSpots = (appointments) => {
-    let targetDay = state.days.find((day)=>{
-      if(day.name === state.day) return day;
-    })
+    // let targetDay = state.days.find((day)=>{
+    //   if(day.name === state.day) return day;
+    // })
+    let targetDay = state.days.find(
+      (day) => day.name === state.day
+    );
     // const numberOfSpots;
     const appointmentsForDay = targetDay.appointments;
 
-    const nullAppointments = appointmentsForDay.filter((appointmentID)=>{
-
-      if (appointments[appointmentID].interview === null) {
-        return appointments[appointmentID]
-      }
-    })
+    // 
+    const nullAppointments = appointmentsForDay.filter(
+  (appointmentID) => appointments[appointmentID].interview === null
+);
 
     const numberOfSpots = nullAppointments.length;
     targetDay.spots = numberOfSpots

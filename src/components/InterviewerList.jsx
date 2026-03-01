@@ -25,10 +25,11 @@ export default function InterviewerList(props) {
 
   return (
     <section className="interviewers">
-      <h4 className="interviewers__header text--light"></h4>
+      <h4 className="interviewers__header text--light" aria-label="interviewers">
       <ul className="interviewers__list">
         {interviewersArray}
       </ul>
+      </h4>
     </section>
   ) 
 
