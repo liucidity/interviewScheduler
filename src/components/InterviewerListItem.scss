@@ -29,6 +29,11 @@
       margin-right: 0.5rem;
     }
 
+    &--no-avatar {
+      padding-left: 1rem;
+      justify-content: center;
+    }
+
     &--selected,
     &:hover {
       @include button-active--opacity;
