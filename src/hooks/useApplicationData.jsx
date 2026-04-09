@@ -1,6 +1,10 @@
 import { useState,useEffect } from "react";
 import Axios from "axios";
 
+if (process.env.REACT_APP_API_URL) {
+  Axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+}
+
 export default function useApplicationData() {
   const [state, setState] = useState({
     day: "Monday",
