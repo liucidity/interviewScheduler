@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: interview-scheduler
+    runtime: static
+    buildCommand: pnpm install && DISABLE_ESLINT_PLUGIN=true pnpm build
+    staticPublishPath: ./build
+    envVars:
+      - key: REACT_APP_API_URL
+        sync: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
